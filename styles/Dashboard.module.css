@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+.container nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-right: 2px solid #ccc;
+  padding: 10px;
+  padding-right: 15px;
+  min-height: calc(100vh - 20px);
+}
+.container main {
+  padding: 10px;
+}
