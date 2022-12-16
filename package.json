@@ -11,12 +11,20 @@
   "dependencies": {
     "antd": "^5.0.3",
     "classnames": "^2.3.2",
+    "diff": "^5.1.0",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.3",
     "framer-motion": "^7.6.18",
+    "moment": "^2.29.4",
     "next": "13.0.3",
     "react": "18.2.0",
+    "react-diff-viewer": "^3.1.1",
     "react-dom": "18.2.0",
     "styled-components": "^5.3.6"
+  },
+  "imports": {
+    "#components/*": "./components/*",
+    "#lib/*": "./lib/*",
+    "#hooks/*": "./hooks/*"
   }
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Steps, Typography, Button, Input, Space, Alert } from "antd";
-import { FieldZone, Container } from "./Components";
+import { FieldZone, Container } from "#components/Components";
 const { Title, Paragraph } = Typography;
 
 const Signup = (props) => {

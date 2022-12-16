@@ -11,7 +11,7 @@ export const getServerSideProps = async (context) => {
   } else {
     return {
       redirect: {
-        destination: "/account",
+        destination: "/dashboard",
         permanent: false,
       },
     };
@@ -19,7 +19,7 @@ export const getServerSideProps = async (context) => {
 };
 
 import { useState } from "react";
-import { Container, FieldZone } from "./Components";
+import { Container, FieldZone } from "#components/Components";
 import { Input, Space, Button, Alert } from "antd";
 
 const Login = () => {
@@ -44,7 +44,7 @@ const Login = () => {
     });
     console.log(res);
     if (res.status === 302) {
-      window.location.href = "/account";
+      window.location.href = "/dashboard";
     } else {
       const data = await res.json();
       if (res.status !== 200) {
@@ -52,7 +52,7 @@ const Login = () => {
         setLoading(false);
         return;
       }
-      window.location.href = "/account";
+      window.location.href = "/dashboard";
     }
   };
 
