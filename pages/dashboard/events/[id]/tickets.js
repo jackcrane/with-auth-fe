@@ -1,48 +1,56 @@
-import Session from "../../../../lib/session";
+import { SessionManager } from "#lib/session";
 
-export const getServerSideProps = async (context) => {
-  const cookienonce = context.req.cookies[`${process.env.NAMESPACE}.AuthNonce`];
-  const session = await Session({ nonce: cookienonce });
+export const getServerSideProps = async (context) =>
+  await SessionManager(context);
 
-  if (!Boolean(session)) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  } else {
-    return {
-      props: {
-        session,
-      },
-    };
-  }
-};
-
-import Nav from "../../../../components/Nav";
-import { Row, Main } from "../../../../components/Components";
 import { useRouter } from "next/router";
+import { Alert, Breadcrumb, Button, Input, Typography, Tooltip } from "antd";
+import { ReloadOutlined } from "@ant-design/icons";
+const { Title, Text } = Typography;
+import { useEffect, useState } from "react";
+import { objectEquals } from "#lib/objectEquals";
+import { getObjectWithModifiedKeys } from "#lib/getObjectWithModifiedKeys";
+import { ConfirmDrawer } from "#components/ConfirmDrawer";
+import moment from "moment";
+import { verifyURL } from "#lib/verifyURL";
+import { useInterval } from "#hooks/useInterval";
+import { DashboardParent } from "#components/DashboardParent";
 
 const Dashboard = ({ session }) => {
   const router = useRouter();
   const { id } = router.query;
 
+  const [event, setEvent] = useState({});
+  const [originalEvent, setOrigianlEvent] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [saveUpdateLoading, setSaveUpdateLoading] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const [loadedAt, setLoadedAt] = useState(moment().toISOString());
+  const [loadedAtRelative, setLoadedAtRelative] = useState("");
+
+  const [ticker, setTicker] = useState(false);
+
   return (
-    <div>
-      <Row gap={"20px"} height={"100%"} minHeight={"100vh"}>
-        <Nav
-          session={session}
-          openkeys={["events", "current", id]}
-          selectedkey="tickets"
-        />
-        <Main>
-          <img src="/logotype.svg" alt="logotype" style={{ height: 50 }} />
-          <p>Logged in</p>
-          {JSON.stringify(session)}
-        </Main>
-      </Row>
-    </div>
+    <>
+      <DashboardParent
+        session={session}
+        openkeys={["events", "current", id]}
+        selectedkey="tickets"
+        title="Config"
+        breadcrumbs={
+          <Breadcrumb>
+            <Breadcrumb.Item>Events</Breadcrumb.Item>
+            <Breadcrumb.Item>{id}</Breadcrumb.Item>
+            <Breadcrumb.Item>Config</Breadcrumb.Item>
+          </Breadcrumb>
+        }
+        headcrumbs={<></>}
+        loading={loading}
+      >
+        <></>
+      </DashboardParent>
+    </>
   );
 };
 
